@@ -1,0 +1,113 @@
+﻿@model IEnumerable<GoogleMapsManager.Domain.GoogleMapsData>
+
+@{
+    ViewBag.Title = "Locations Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Plant Locations</h2>
+<div class="col-xs-12">
+    @Html.Hidden("hdnFacilityTypes")
+    @(Html.Kendo().Grid<GoogleMapsManager.Domain.GoogleMapsData>()
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.SitecoreId).Visible(false);
+            columns.Bound(p => p.Title);
+            columns.Bound(p => p.Address);
+            columns.Bound(p => p.Locality);
+            columns.Bound(p => p.Country);
+            columns.Bound(p => p.Region);
+            columns.Bound(p => p.PlantManager);
+            columns.Bound(p => p.PlantManagerEmail);
+            columns.Command(command => { command.Edit().Text("Edit"); command.Destroy().Text("Delete"); });
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable(f => f.Extra(false))
+        .Selectable(s => s.Enabled(false))
+        .Filterable()
+        .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("LocationDataEditor"))
+        .ToolBar(toolBar =>
+        {
+            toolBar.Create();
+        })
+        .Events(e => e.DataBound("onGridDataBound").Edit("onGridEdit"))
+        .DataSource(dataSource =>
+        {
+            dataSource.Ajax()
+                .ServerOperation(false)
+                .PageSize(50)
+                .Sort(sort => sort.Add("Title"))
+                .PageSize(50)
+                .Read(read => read.Action("GetLocations", "MapLocations"))
+                .Update(update => update.Action("Update", "MapLocations").Data("serialize")) 
+                .Destroy(destroy => destroy.Action("Destroy", "MapLocations"))
+                .Create(create => create.Action("Create", "MapLocations").Data("serialize"))
+                .Model(model =>
+                {
+                    model.Id(p => p.id);
+                });
+        }
+        )
+        .AutoBind(true)
+    )
+</div>
+<div class="col-xs-12">
+    <span style="padding:10px;">@Html.ActionLink("Regions", "../Regions")</span>
+    <span style="padding:10px;">@Html.ActionLink("Facility Types", "../FacilityTypes")</span>
+    <span style="padding:10px;">@Html.ActionLink("Products", "../Products")</span>
+</div>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function onFacilityChange(e) {
+
+    }
+
+    function regionDropdownChange(e) {
+    }
+
+    function onGridEdit(e) {        
+        $("#FacilityTypes").data("kendoMultiSelect").value(e.model.FacilityTypes.split(","));
+        e.model.ProductTypes && $("#ProductTypes").data("kendoMultiSelect").value(e.model.ProductTypes.split(","));
+    }
+
+    function onGridDataBound(e) {
+        $('#Grid script').appendTo(document.body);
+    }
+   
+    function serialize(data) {
+        for (var property in data) {
+            if ($.isArray(data[property])) {
+                serializeArray(property, data[property], data);
+            }
+        }
+    }
+
+    function serializeArray(prefix, array, result) {
+        for (var i = 0; i < array.length; i++) {
+            if ($.isPlainObject(array[i])) {
+                for (var property in array[i]) {
+                    result[prefix + "[" + i + "]." + property] = array[i][property];
+                }
+            }
+            else {
+                result[prefix + "[" + i + "]"] = array[i];
+            }
+        }
+    }
+
+</script>

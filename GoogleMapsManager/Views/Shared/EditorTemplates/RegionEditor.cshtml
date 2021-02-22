@@ -1,0 +1,8 @@
+﻿
+@(Html.Kendo().DropDownList()
+            .Name("Region") 
+            .DataValueField("Region") 
+            .DataTextField("Region")
+            .BindTo((System.Collections.IEnumerable)ViewData["regions"])
+            .Events(ev => ev.Change("regionDropdownChange"))
+)

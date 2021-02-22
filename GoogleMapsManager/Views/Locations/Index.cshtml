@@ -1,0 +1,95 @@
+﻿@model IEnumerable<GoogleMapsManager.Domain.GM_Locations>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Plant Locations</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateOrProvince)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationLat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationLong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GM_Regions.RegionName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateOrProvince)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationLat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationLong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GM_Regions.RegionName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PlantId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PlantId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PlantId })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IntranetResourcesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GM_FacilityTypes">
+          <Key>
+            <PropertyRef Name="FacilityTypeId" />
+          </Key>
+          <Property Name="FacilityTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FacilityTypeDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GM_LocationManagers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="ManagerEIN" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="ManagerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManagerTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManagerPhone" Type="varchar" MaxLength="25" />
+          <Property Name="ManagerEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ManagerDisplayOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GM_Locations">
+          <Key>
+            <PropertyRef Name="PlantId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlantId" Type="int" Nullable="false" />
+          <Property Name="PlantName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Region" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="StateOrProvince" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="25" />
+          <Property Name="LocationLat" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="LocationLong" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntranetResources.dbo.GM_PlantFacilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GM_PlantFacilities">
+          <Key>
+            <PropertyRef Name="PlantId" />
+            <PropertyRef Name="FacilityTypeId" />
+          </Key>
+          <Property Name="PlantId" Type="int" Nullable="false" />
+          <Property Name="FacilityTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntranetResources.dbo.GM_PlantProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GM_PlantProducts">
+          <Key>
+            <PropertyRef Name="PlantId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="PlantId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GM_Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GM_Regions">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GM_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoogleMapsData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SitecoreId" Type="nvarchar" MaxLength="40" />
+          <Property Name="PlantId" Type="nvarchar" MaxLength="6" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Subtitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Suite" Type="nvarchar" MaxLength="50" />
+          <Property Name="Locality" Type="nvarchar" MaxLength="200" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Latitude" Type="decimal" Precision="12" Scale="9" />
+          <Property Name="Longitude" Type="decimal" Precision="12" Scale="9" />
+          <Property Name="Region" Type="nvarchar" MaxLength="30" />
+          <Property Name="ProductTypes" Type="nvarchar" MaxLength="100" />
+          <Property Name="FacilityTypes" Type="nvarchar" MaxLength="100" />
+          <Property Name="PlantManager" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlantManagerEmail" Type="nvarchar" MaxLength="75" />
+          <Property Name="Operations" Type="nvarchar" MaxLength="50" />
+          <Property Name="OperationsEmail" Type="nvarchar" MaxLength="75" />
+          <Property Name="HR" Type="nvarchar" MaxLength="50" />
+          <Property Name="HREmail" Type="nvarchar" MaxLength="75" />
+          <Property Name="Sales" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalesEmail" Type="nvarchar" MaxLength="75" />
+          <Property Name="PlantSummary" Type="nvarchar" MaxLength="Max" />
+        </EntityType>
+        <EntityType Name="RKTN_CountryCodes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Abbreviation" Type="varchar" MaxLength="3" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneCountryCode" Type="char" MaxLength="3" />
+          <Property Name="PostalCodeValidation" Type="varchar" MaxLength="50" />
+          <Property Name="SetID" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="RKTN_People">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EIN" Type="varchar" MaxLength="11" />
+          <Property Name="UserID" Type="varchar" MaxLength="75" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Suffix" Type="nvarchar" MaxLength="15" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MidInit" Type="nchar" MaxLength="1" />
+          <Property Name="CostCenter" Type="varchar" MaxLength="7" />
+          <Property Name="Employer" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Level01" Type="varchar" MaxLength="10" />
+          <Property Name="Level02" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="10" />
+          <Property Name="Worksite" Type="varchar" MaxLength="10" />
+          <Property Name="PositionCode" Type="varchar" MaxLength="8" />
+          <Property Name="Status" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Salaried" Type="bit" Nullable="false" />
+          <Property Name="IsUnion" Type="bit" Nullable="false" />
+          <Property Name="IsTerminated" Type="bit" />
+          <Property Name="FloorID" Type="int" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="16" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="12" />
+          <Property Name="Country" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Email2" Type="varchar" MaxLength="100" />
+          <Property Name="HomePhone" Type="varchar" MaxLength="100" />
+          <Property Name="OfficePhone" Type="varchar" MaxLength="100" />
+          <Property Name="Extension" Type="varchar" MaxLength="100" />
+          <Property Name="Fax" Type="varchar" MaxLength="100" />
+          <Property Name="MobilePhone" Type="varchar" MaxLength="100" />
+          <Property Name="Pager" Type="varchar" MaxLength="100" />
+          <Property Name="DateOfHire" Type="datetime" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="MaritalStatus" Type="char" MaxLength="1" />
+          <Property Name="Sex" Type="char" MaxLength="1" />
+          <Property Name="Race" Type="char" MaxLength="1" />
+          <Property Name="PrimaryLanguage" Type="varchar" MaxLength="255" />
+          <Property Name="EEOJobCode" Type="varchar" MaxLength="2" />
+          <Property Name="SpouseName" Type="varchar" MaxLength="50" />
+          <Property Name="SpouseDOB" Type="datetime" />
+          <Property Name="PublishHomePhone" Type="bit" Nullable="false" />
+          <Property Name="PublishHomeAddress" Type="bit" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" />
+          <Property Name="PayrollSystem" Type="varchar" MaxLength="5" />
+          <Property Name="LastPayDate" Type="datetime" />
+          <Property Name="SSN" Type="char" MaxLength="9" />
+          <Property Name="HasTimeCard" Type="varchar" MaxLength="2" />
+          <Property Name="HourlyBaseRate" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="SupervisorEIN" Type="varchar" MaxLength="11" />
+          <Property Name="BadgeNumber" Type="varchar" MaxLength="20" />
+          <Property Name="SeniorityDate" Type="datetime" />
+          <Property Name="ReviewDate" Type="datetime" />
+          <Property Name="UnionCode" Type="varchar" MaxLength="10" />
+          <Property Name="ShiftCode" Type="varchar" MaxLength="5" />
+          <Property Name="LeaveCode" Type="varchar" MaxLength="10" />
+          <Property Name="LeaveDate" Type="datetime" />
+          <Property Name="EditedDateTime" Type="datetime" />
+          <Property Name="SSOPwd" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="newAddress1" Type="varchar" MaxLength="30" />
+          <Property Name="newAddress2" Type="varchar" MaxLength="30" />
+          <Property Name="TMEmailSent" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="LegacyEIN" Type="varchar" MaxLength="11" />
+          <Property Name="PositionTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmployeeStatus" Type="char" MaxLength="1" />
+          <Property Name="JobCode" Type="varchar" MaxLength="6" />
+          <Property Name="RegTemp" Type="char" MaxLength="1" />
+          <Property Name="FullPart" Type="char" MaxLength="1" />
+          <Property Name="SupervisorPositionCode" Type="varchar" MaxLength="8" />
+          <Property Name="LegacyPositionCode" Type="varchar" MaxLength="8" />
+          <Property Name="LegacyWorksite" Type="varchar" MaxLength="5" />
+          <Property Name="LegacySupervisorEIN" Type="varchar" MaxLength="9" />
+          <Property Name="TerminationDate" Type="datetime" />
+          <Property Name="Area" Type="varchar" MaxLength="5" />
+          <Property Name="Region" Type="varchar" MaxLength="5" />
+          <Property Name="PayGroup" Type="varchar" MaxLength="3" />
+          <Property Name="PSDivision" Type="varchar" MaxLength="10" />
+          <Property Name="PSBusinessUnit" Type="varchar" MaxLength="5" />
+          <Property Name="PSDeptID" Type="varchar" MaxLength="10" />
+          <Property Name="PSWorksite" Type="varchar" MaxLength="4" />
+          <Property Name="PSEmployer" Type="varchar" MaxLength="3" />
+          <Property Name="PSEmploymentType" Type="char" MaxLength="1" />
+          <Property Name="RecordSource" Type="varchar" MaxLength="255" />
+          <Property Name="AddedBy" Type="varchar" MaxLength="255" />
+          <Property Name="PER_ORG" Type="varchar" MaxLength="3" />
+          <Property Name="EMPL_CLASS" Type="varchar" MaxLength="3" />
+          <Property Name="ZPS_LEADER" Type="varchar" MaxLength="1" />
+          <Property Name="ZPS_SEGMENT" Type="varchar" MaxLength="10" />
+          <Property Name="ZPS_GROUP" Type="varchar" MaxLength="10" />
+          <Property Name="ZPS_FUNCTION" Type="varchar" MaxLength="10" />
+          <Property Name="APPROVER" Type="varchar" MaxLength="1" />
+          <Property Name="JOBCODE_DESCSHORT" Type="varchar" MaxLength="10" />
+          <Property Name="SEG_DESCR" Type="varchar" MaxLength="30" />
+          <Property Name="GRP_DESCR" Type="varchar" MaxLength="30" />
+          <Property Name="FUNC_DESCR" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_GM_LocationManagers_GM_Roles">
+          <End Role="GM_Roles" Type="Self.GM_Roles" Multiplicity="1" />
+          <End Role="GM_LocationManagers" Type="Self.GM_LocationManagers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="GM_LocationManagers">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_LocationManagers_location">
+          <End Role="GM_Locations" Type="Self.GM_Locations" Multiplicity="1" />
+          <End Role="GM_LocationManagers" Type="Self.GM_LocationManagers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Locations">
+              <PropertyRef Name="PlantId" />
+            </Principal>
+            <Dependent Role="GM_LocationManagers">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_Locations_GM_Regions">
+          <End Role="GM_Regions" Type="Self.GM_Regions" Multiplicity="1" />
+          <End Role="GM_Locations" Type="Self.GM_Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Regions">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="GM_Locations">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_PlantFacilities_GM_Facilities">
+          <End Role="GM_FacilityTypes" Type="Self.GM_FacilityTypes" Multiplicity="1" />
+          <End Role="GM_PlantFacilities" Type="Self.GM_PlantFacilities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_FacilityTypes">
+              <PropertyRef Name="FacilityTypeId" />
+            </Principal>
+            <Dependent Role="GM_PlantFacilities">
+              <PropertyRef Name="FacilityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_PlantFacilities_GM_Locations">
+          <End Role="GM_Locations" Type="Self.GM_Locations" Multiplicity="1" />
+          <End Role="GM_PlantFacilities" Type="Self.GM_PlantFacilities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Locations">
+              <PropertyRef Name="PlantId" />
+            </Principal>
+            <Dependent Role="GM_PlantFacilities">
+              <PropertyRef Name="PlantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_PlantProducts_GM_Plant">
+          <End Role="GM_Locations" Type="Self.GM_Locations" Multiplicity="1" />
+          <End Role="GM_PlantProducts" Type="Self.GM_PlantProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Locations">
+              <PropertyRef Name="PlantId" />
+            </Principal>
+            <Dependent Role="GM_PlantProducts">
+              <PropertyRef Name="PlantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_PlantProducts_Products">
+          <End Role="GM_Products" Type="Self.GM_Products" Multiplicity="1" />
+          <End Role="GM_PlantProducts" Type="Self.GM_PlantProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="GM_PlantProducts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IntranetResourcesModelStoreContainer">
+          <EntitySet Name="GM_FacilityTypes" EntityType="Self.GM_FacilityTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_LocationManagers" EntityType="Self.GM_LocationManagers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_Locations" EntityType="Self.GM_Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_Products" EntityType="Self.GM_Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_Regions" EntityType="Self.GM_Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_Roles" EntityType="Self.GM_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoogleMapsData" EntityType="Self.GoogleMapsData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RKTN_CountryCodes" EntityType="Self.RKTN_CountryCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RKTN_People" EntityType="Self.RKTN_People" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GM_PlantFacilities" EntityType="Self.GM_PlantFacilities" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GM_PlantFacilities].[PlantId] AS [PlantId], 
+    [GM_PlantFacilities].[FacilityTypeId] AS [FacilityTypeId]
+    FROM [dbo].[GM_PlantFacilities] AS [GM_PlantFacilities]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="GM_PlantProducts" EntityType="Self.GM_PlantProducts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GM_PlantProducts].[PlantId] AS [PlantId], 
+    [GM_PlantProducts].[ProductId] AS [ProductId]
+    FROM [dbo].[GM_PlantProducts] AS [GM_PlantProducts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_GM_LocationManagers_GM_Roles" Association="Self.FK_GM_LocationManagers_GM_Roles">
+            <End Role="GM_Roles" EntitySet="GM_Roles" />
+            <End Role="GM_LocationManagers" EntitySet="GM_LocationManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_LocationManagers_location" Association="Self.FK_GM_LocationManagers_location">
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+            <End Role="GM_LocationManagers" EntitySet="GM_LocationManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_Locations_GM_Regions" Association="Self.FK_GM_Locations_GM_Regions">
+            <End Role="GM_Regions" EntitySet="GM_Regions" />
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_PlantFacilities_GM_Facilities" Association="Self.FK_GM_PlantFacilities_GM_Facilities">
+            <End Role="GM_FacilityTypes" EntitySet="GM_FacilityTypes" />
+            <End Role="GM_PlantFacilities" EntitySet="GM_PlantFacilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_PlantFacilities_GM_Locations" Association="Self.FK_GM_PlantFacilities_GM_Locations">
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+            <End Role="GM_PlantFacilities" EntitySet="GM_PlantFacilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_PlantProducts_GM_Plant" Association="Self.FK_GM_PlantProducts_GM_Plant">
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+            <End Role="GM_PlantProducts" EntitySet="GM_PlantProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_PlantProducts_Products" Association="Self.FK_GM_PlantProducts_Products">
+            <End Role="GM_Products" EntitySet="GM_Products" />
+            <End Role="GM_PlantProducts" EntitySet="GM_PlantProducts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntranetResourcesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="RKTN_CountryCodes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneCountryCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="PostalCodeValidation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SetID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RKTN_People">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EIN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Suffix" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MidInit" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CostCenter" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Employer" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Level01" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Level02" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Worksite" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PositionCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Salaried" Type="Boolean" Nullable="false" />
+          <Property Name="IsUnion" Type="Boolean" Nullable="false" />
+          <Property Name="IsTerminated" Type="Boolean" />
+          <Property Name="FloorID" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OfficePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfHire" Type="DateTime" Precision="3" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Race" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PrimaryLanguage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EEOJobCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SpouseDOB" Type="DateTime" Precision="3" />
+          <Property Name="PublishHomePhone" Type="Boolean" Nullable="false" />
+          <Property Name="PublishHomeAddress" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="PayrollSystem" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LastPayDate" Type="DateTime" Precision="3" />
+          <Property Name="SSN" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="HasTimeCard" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="HourlyBaseRate" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="SupervisorEIN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="BadgeNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SeniorityDate" Type="DateTime" Precision="3" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="UnionCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ShiftCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LeaveCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LeaveDate" Type="DateTime" Precision="3" />
+          <Property Name="EditedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="SSOPwd" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="newAddress1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="newAddress2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TMEmailSent" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LegacyEIN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="PositionTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="JobCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="RegTemp" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FullPart" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SupervisorPositionCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LegacyPositionCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LegacyWorksite" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LegacySupervisorEIN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PayGroup" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="PSDivision" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PSBusinessUnit" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PSDeptID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PSWorksite" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="PSEmployer" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="PSEmploymentType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="RecordSource" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AddedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PER_ORG" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="EMPL_CLASS" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ZPS_LEADER" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ZPS_SEGMENT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ZPS_GROUP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ZPS_FUNCTION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="APPROVER" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOBCODE_DESCSHORT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SEG_DESCR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="GRP_DESCR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FUNC_DESCR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="IntranetResourcesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RKTN_CountryCodes" EntityType="Self.RKTN_CountryCodes" />
+          <EntitySet Name="RKTN_People" EntityType="Self.RKTN_People" />
+          <EntitySet Name="GM_FacilityTypes" EntityType="IntranetResourcesModel.GM_FacilityTypes" />
+          <EntitySet Name="GM_LocationManagers" EntityType="IntranetResourcesModel.GM_LocationManagers" />
+          <EntitySet Name="GM_Regions" EntityType="IntranetResourcesModel.GM_Regions" />
+          <EntitySet Name="GM_Roles" EntityType="IntranetResourcesModel.GM_Roles" />
+          <AssociationSet Name="FK_GM_LocationManagers_GM_Roles" Association="IntranetResourcesModel.FK_GM_LocationManagers_GM_Roles">
+            <End Role="GM_Roles" EntitySet="GM_Roles" />
+            <End Role="GM_LocationManagers" EntitySet="GM_LocationManagers" />
+          </AssociationSet>
+          <EntitySet Name="GM_Locations" EntityType="IntranetResourcesModel.GM_Locations" />
+          <AssociationSet Name="FK_GM_LocationManagers_location" Association="IntranetResourcesModel.FK_GM_LocationManagers_location">
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+            <End Role="GM_LocationManagers" EntitySet="GM_LocationManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GM_Locations_GM_Regions" Association="IntranetResourcesModel.FK_GM_Locations_GM_Regions">
+            <End Role="GM_Regions" EntitySet="GM_Regions" />
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+          </AssociationSet>
+          <EntitySet Name="GM_Products" EntityType="IntranetResourcesModel.GM_Products" />
+          <AssociationSet Name="GM_PlantFacilities" Association="IntranetResourcesModel.GM_PlantFacilities">
+            <End Role="GM_FacilityTypes" EntitySet="GM_FacilityTypes" />
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+          </AssociationSet>
+          <AssociationSet Name="GM_PlantProducts" Association="IntranetResourcesModel.GM_PlantProducts">
+            <End Role="GM_Locations" EntitySet="GM_Locations" />
+            <End Role="GM_Products" EntitySet="GM_Products" />
+          </AssociationSet>
+          <EntitySet Name="GoogleMapsDatas" EntityType="IntranetResourcesModel.GoogleMapsData" />
+          </EntityContainer>
+        <EntityType Name="GM_FacilityTypes">
+          <Key>
+            <PropertyRef Name="FacilityTypeId" />
+          </Key>
+          <Property Name="FacilityTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FacilityTypeDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GM_Locations" Relationship="IntranetResourcesModel.GM_PlantFacilities" FromRole="GM_FacilityTypes" ToRole="GM_Locations" />
+        </EntityType>
+        <EntityType Name="GM_LocationManagers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="ManagerEIN" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerDisplayOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GM_Roles" Relationship="IntranetResourcesModel.FK_GM_LocationManagers_GM_Roles" FromRole="GM_LocationManagers" ToRole="GM_Roles" />
+          <NavigationProperty Name="GM_Locations" Relationship="IntranetResourcesModel.FK_GM_LocationManagers_location" FromRole="GM_LocationManagers" ToRole="GM_Locations" />
+        </EntityType>
+        <EntityType Name="GM_Regions">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GM_Locations" Relationship="IntranetResourcesModel.FK_GM_Locations_GM_Regions" FromRole="GM_Regions" ToRole="GM_Locations" />
+        </EntityType>
+        <EntityType Name="GM_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GM_LocationManagers" Relationship="IntranetResourcesModel.FK_GM_LocationManagers_GM_Roles" FromRole="GM_Roles" ToRole="GM_LocationManagers" />
+        </EntityType>
+        <Association Name="FK_GM_LocationManagers_GM_Roles">
+          <End Type="IntranetResourcesModel.GM_Roles" Role="GM_Roles" Multiplicity="1" />
+          <End Type="IntranetResourcesModel.GM_LocationManagers" Role="GM_LocationManagers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="GM_LocationManagers">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GM_Locations">
+          <Key>
+            <PropertyRef Name="PlantId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlantId" Type="Int32" Nullable="false" />
+          <Property Name="PlantName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="StateOrProvince" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LocationLat" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+          <Property Name="LocationLong" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+          <NavigationProperty Name="GM_LocationManagers" Relationship="IntranetResourcesModel.FK_GM_LocationManagers_location" FromRole="GM_Locations" ToRole="GM_LocationManagers" />
+          <NavigationProperty Name="GM_Regions" Relationship="IntranetResourcesModel.FK_GM_Locations_GM_Regions" FromRole="GM_Locations" ToRole="GM_Regions" />
+          <NavigationProperty Name="GM_FacilityTypes" Relationship="IntranetResourcesModel.GM_PlantFacilities" FromRole="GM_Locations" ToRole="GM_FacilityTypes" />
+          <NavigationProperty Name="GM_Products" Relationship="IntranetResourcesModel.GM_PlantProducts" FromRole="GM_Locations" ToRole="GM_Products" />
+          </EntityType>
+        <Association Name="FK_GM_LocationManagers_location">
+          <End Type="IntranetResourcesModel.GM_Locations" Role="GM_Locations" Multiplicity="1" />
+          <End Type="IntranetResourcesModel.GM_LocationManagers" Role="GM_LocationManagers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Locations">
+              <PropertyRef Name="PlantId" />
+            </Principal>
+            <Dependent Role="GM_LocationManagers">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GM_Locations_GM_Regions">
+          <End Type="IntranetResourcesModel.GM_Regions" Role="GM_Regions" Multiplicity="1" />
+          <End Type="IntranetResourcesModel.GM_Locations" Role="GM_Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GM_Regions">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="GM_Locations">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GM_Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GM_Locations" Relationship="IntranetResourcesModel.GM_PlantProducts" FromRole="GM_Products" ToRole="GM_Locations" />
+        </EntityType>
+        <Association Name="GM_PlantFacilities">
+          <End Type="IntranetResourcesModel.GM_FacilityTypes" Role="GM_FacilityTypes" Multiplicity="*" />
+          <End Type="IntranetResourcesModel.GM_Locations" Role="GM_Locations" Multiplicity="*" />
+        </Association>
+        <Association Name="GM_PlantProducts">
+          <End Type="IntranetResourcesModel.GM_Locations" Role="GM_Locations" Multiplicity="*" />
+          <End Type="IntranetResourcesModel.GM_Products" Role="GM_Products" Multiplicity="*" />
+        </Association>
+        <EntityType Name="GoogleMapsData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SitecoreId" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PlantId" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Suite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Locality" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Decimal" Precision="12" Scale="9" />
+          <Property Name="Longitude" Type="Decimal" Precision="12" Scale="9" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProductTypes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FacilityTypes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PlantManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlantManagerEmail" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="Operations" Type="String" FixedLength="false" MaxLength="50" Unicode="true" />
+          <Property Name="OperationsEmail" Type="String" FixedLength="false" MaxLength="75" Unicode="true" />
+          <Property Name="HR" Type="String" FixedLength="false" MaxLength="50" Unicode="true" />
+          <Property Name="HREmail" Type="String" FixedLength="false" MaxLength="75" Unicode="true" />
+          <Property Name="Sales" Type="String" FixedLength="false" MaxLength="50" Unicode="true" />
+          <Property Name="SalesEmail" Type="String" FixedLength="false" MaxLength="75" Unicode="true" />
+          <Property Name="PlantSummary" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntranetResourcesModelStoreContainer" CdmEntityContainer="IntranetResourcesEntities">
+          <EntitySetMapping Name="RKTN_CountryCodes">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.RKTN_CountryCodes">
+              <MappingFragment StoreEntitySet="RKTN_CountryCodes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PhoneCountryCode" ColumnName="PhoneCountryCode" />
+                <ScalarProperty Name="PostalCodeValidation" ColumnName="PostalCodeValidation" />
+                <ScalarProperty Name="SetID" ColumnName="SetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RKTN_People">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.RKTN_People">
+              <MappingFragment StoreEntitySet="RKTN_People">
+                <ScalarProperty Name="FUNC_DESCR" ColumnName="FUNC_DESCR" />
+                <ScalarProperty Name="GRP_DESCR" ColumnName="GRP_DESCR" />
+                <ScalarProperty Name="SEG_DESCR" ColumnName="SEG_DESCR" />
+                <ScalarProperty Name="JOBCODE_DESCSHORT" ColumnName="JOBCODE_DESCSHORT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EIN" ColumnName="EIN" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CommonName" ColumnName="CommonName" />
+                <ScalarProperty Name="MidInit" ColumnName="MidInit" />
+                <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+                <ScalarProperty Name="Employer" ColumnName="Employer" />
+                <ScalarProperty Name="Level01" ColumnName="Level01" />
+                <ScalarProperty Name="Level02" ColumnName="Level02" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Worksite" ColumnName="Worksite" />
+                <ScalarProperty Name="PositionCode" ColumnName="PositionCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Salaried" ColumnName="Salaried" />
+                <ScalarProperty Name="IsUnion" ColumnName="IsUnion" />
+                <ScalarProperty Name="IsTerminated" ColumnName="IsTerminated" />
+                <ScalarProperty Name="FloorID" ColumnName="FloorID" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Email2" ColumnName="Email2" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Pager" ColumnName="Pager" />
+                <ScalarProperty Name="DateOfHire" ColumnName="DateOfHire" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Race" ColumnName="Race" />
+                <ScalarProperty Name="PrimaryLanguage" ColumnName="PrimaryLanguage" />
+                <ScalarProperty Name="EEOJobCode" ColumnName="EEOJobCode" />
+                <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+                <ScalarProperty Name="SpouseDOB" ColumnName="SpouseDOB" />
+                <ScalarProperty Name="PublishHomePhone" ColumnName="PublishHomePhone" />
+                <ScalarProperty Name="PublishHomeAddress" ColumnName="PublishHomeAddress" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="PayrollSystem" ColumnName="PayrollSystem" />
+                <ScalarProperty Name="LastPayDate" ColumnName="LastPayDate" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="HasTimeCard" ColumnName="HasTimeCard" />
+                <ScalarProperty Name="HourlyBaseRate" ColumnName="HourlyBaseRate" />
+                <ScalarProperty Name="SupervisorEIN" ColumnName="SupervisorEIN" />
+                <ScalarProperty Name="BadgeNumber" ColumnName="BadgeNumber" />
+                <ScalarProperty Name="SeniorityDate" ColumnName="SeniorityDate" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="UnionCode" ColumnName="UnionCode" />
+                <ScalarProperty Name="ShiftCode" ColumnName="ShiftCode" />
+                <ScalarProperty Name="LeaveCode" ColumnName="LeaveCode" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+                <ScalarProperty Name="EditedDateTime" ColumnName="EditedDateTime" />
+                <ScalarProperty Name="SSOPwd" ColumnName="SSOPwd" />
+                <ScalarProperty Name="newAddress1" ColumnName="newAddress1" />
+                <ScalarProperty Name="newAddress2" ColumnName="newAddress2" />
+                <ScalarProperty Name="TMEmailSent" ColumnName="TMEmailSent" />
+                <ScalarProperty Name="LegacyEIN" ColumnName="LegacyEIN" />
+                <ScalarProperty Name="PositionTitle" ColumnName="PositionTitle" />
+                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+                <ScalarProperty Name="RegTemp" ColumnName="RegTemp" />
+                <ScalarProperty Name="FullPart" ColumnName="FullPart" />
+                <ScalarProperty Name="SupervisorPositionCode" ColumnName="SupervisorPositionCode" />
+                <ScalarProperty Name="LegacyPositionCode" ColumnName="LegacyPositionCode" />
+                <ScalarProperty Name="LegacyWorksite" ColumnName="LegacyWorksite" />
+                <ScalarProperty Name="LegacySupervisorEIN" ColumnName="LegacySupervisorEIN" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="PayGroup" ColumnName="PayGroup" />
+                <ScalarProperty Name="PSDivision" ColumnName="PSDivision" />
+                <ScalarProperty Name="PSBusinessUnit" ColumnName="PSBusinessUnit" />
+                <ScalarProperty Name="PSDeptID" ColumnName="PSDeptID" />
+                <ScalarProperty Name="PSWorksite" ColumnName="PSWorksite" />
+                <ScalarProperty Name="PSEmployer" ColumnName="PSEmployer" />
+                <ScalarProperty Name="PSEmploymentType" ColumnName="PSEmploymentType" />
+                <ScalarProperty Name="RecordSource" ColumnName="RecordSource" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="PER_ORG" ColumnName="PER_ORG" />
+                <ScalarProperty Name="EMPL_CLASS" ColumnName="EMPL_CLASS" />
+                <ScalarProperty Name="ZPS_LEADER" ColumnName="ZPS_LEADER" />
+                <ScalarProperty Name="ZPS_SEGMENT" ColumnName="ZPS_SEGMENT" />
+                <ScalarProperty Name="ZPS_GROUP" ColumnName="ZPS_GROUP" />
+                <ScalarProperty Name="ZPS_FUNCTION" ColumnName="ZPS_FUNCTION" />
+                <ScalarProperty Name="APPROVER" ColumnName="APPROVER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_FacilityTypes">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_FacilityTypes">
+              <MappingFragment StoreEntitySet="GM_FacilityTypes">
+                <ScalarProperty Name="FacilityTypeDescription" ColumnName="FacilityTypeDescription" />
+                <ScalarProperty Name="FacilityTypeId" ColumnName="FacilityTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_LocationManagers">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_LocationManagers">
+              <MappingFragment StoreEntitySet="GM_LocationManagers">
+                <ScalarProperty Name="ManagerDisplayOrder" ColumnName="ManagerDisplayOrder" />
+                <ScalarProperty Name="ManagerEmail" ColumnName="ManagerEmail" />
+                <ScalarProperty Name="ManagerPhone" ColumnName="ManagerPhone" />
+                <ScalarProperty Name="ManagerTitle" ColumnName="ManagerTitle" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="ManagerEIN" ColumnName="ManagerEIN" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_Regions">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_Regions">
+              <MappingFragment StoreEntitySet="GM_Regions">
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_Roles">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_Roles">
+              <MappingFragment StoreEntitySet="GM_Roles">
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_Locations">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_Locations">
+              <MappingFragment StoreEntitySet="GM_Locations">
+                <ScalarProperty Name="LocationLong" ColumnName="LocationLong" />
+                <ScalarProperty Name="LocationLat" ColumnName="LocationLat" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="StateOrProvince" ColumnName="StateOrProvince" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+                <ScalarProperty Name="PlantId" ColumnName="PlantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GM_Products">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GM_Products">
+              <MappingFragment StoreEntitySet="GM_Products">
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="GM_PlantFacilities" TypeName="IntranetResourcesModel.GM_PlantFacilities" StoreEntitySet="GM_PlantFacilities">
+            <EndProperty Name="GM_Locations">
+              <ScalarProperty Name="PlantId" ColumnName="PlantId" />
+            </EndProperty>
+            <EndProperty Name="GM_FacilityTypes">
+              <ScalarProperty Name="FacilityTypeId" ColumnName="FacilityTypeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="GM_PlantProducts" TypeName="IntranetResourcesModel.GM_PlantProducts" StoreEntitySet="GM_PlantProducts">
+            <EndProperty Name="GM_Products">
+              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            </EndProperty>
+            <EndProperty Name="GM_Locations">
+              <ScalarProperty Name="PlantId" ColumnName="PlantId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="GoogleMapsDatas">
+            <EntityTypeMapping TypeName="IntranetResourcesModel.GoogleMapsData">
+              <MappingFragment StoreEntitySet="GoogleMapsData">
+		<ScalarProperty Name="PlantSummary" ColumnName="PlantSummary" />
+		<ScalarProperty Name="SalesEmail" ColumnName="SalesEmail" />
+                <ScalarProperty Name="Sales" ColumnName="Sales" />
+		<ScalarProperty Name="HREmail" ColumnName="HREmail" />
+                <ScalarProperty Name="HR" ColumnName="HR" />
+		<ScalarProperty Name="OperationsEmail" ColumnName="OperationsEmail" />
+                <ScalarProperty Name="Operations" ColumnName="Operations" />
+                <ScalarProperty Name="PlantManagerEmail" ColumnName="PlantManagerEmail" />
+                <ScalarProperty Name="PlantManager" ColumnName="PlantManager" />
+                <ScalarProperty Name="FacilityTypes" ColumnName="FacilityTypes" />
+                <ScalarProperty Name="ProductTypes" ColumnName="ProductTypes" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="Suite" ColumnName="Suite" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PlantId" ColumnName="PlantId" />
+                <ScalarProperty Name="SitecoreId" ColumnName="SitecoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

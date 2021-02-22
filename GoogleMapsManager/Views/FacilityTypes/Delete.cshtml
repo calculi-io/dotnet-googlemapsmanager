@@ -1,0 +1,33 @@
+﻿@model GoogleMapsManager.Domain.GM_FacilityTypes
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Facility Types</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Delete Facility Type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FacilityTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacilityTypeDescription)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

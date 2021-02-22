@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d10811831d3429bbeed13739ebeaf74" Name="Diagram1" ZoomLevel="91">
+        <EntityTypeShape EntityType="IntranetResourcesModel.RKTN_CountryCodes" Width="1.5" PointX="9.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.RKTN_People" Width="1.5" PointX="11.375" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_FacilityTypes" Width="1.5" PointX="2.625" PointY="6" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_LocationManagers" Width="1.5" PointX="2.75" PointY="1" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_Regions" Width="1.5" PointX="5.125" PointY="6" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_Roles" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="IntranetResourcesModel.FK_GM_LocationManagers_GM_Roles" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_Locations" Width="1.5" PointX="5.125" PointY="1" />
+        <AssociationConnector Association="IntranetResourcesModel.FK_GM_LocationManagers_location" />
+        <AssociationConnector Association="IntranetResourcesModel.FK_GM_Locations_GM_Regions" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GM_Products" Width="1.5" PointX="7.375" PointY="4.25" />
+        <AssociationConnector Association="IntranetResourcesModel.GM_PlantFacilities" />
+        <AssociationConnector Association="IntranetResourcesModel.GM_PlantProducts" />
+        <EntityTypeShape EntityType="IntranetResourcesModel.GoogleMapsData" Width="1.5" PointX="7.375" PointY="6.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

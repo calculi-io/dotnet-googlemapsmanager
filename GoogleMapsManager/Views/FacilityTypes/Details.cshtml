@@ -1,0 +1,27 @@
+﻿@model GoogleMapsManager.Domain.GM_FacilityTypes
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Facility Types</h2>
+
+<div>
+    <h4>Facility Type Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FacilityTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacilityTypeDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FacilityTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

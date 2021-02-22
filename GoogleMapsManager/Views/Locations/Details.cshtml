@@ -1,0 +1,149 @@
+﻿@model GoogleMapsManager.Models.LocationDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Locations</h2>
+
+<div class="col-sm-12">
+    <h4>Location Detail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlantId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlantId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlantName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateOrProvince)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateOrProvince)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationLat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationLat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationLong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationLong)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PlantId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<div class="col-sm-12">
+    <h4>Products</h4>
+    <table class="table">
+        @foreach (var item in Model.SelectedProducts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Edit Assigned Products", "EditLocationProducts")
+    </p>
+</div>
+
+<div class="col-sm-12">
+    <h4>Location Managers</h4>
+    <table class="table">
+        @foreach (var item in Model.SelectedManagers)
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(modelItem => item.ManagerName)</th>
+                <th>@Html.DisplayNameFor(modelItem => item.Role)</th>
+                <th>@Html.DisplayNameFor(modelItem => item.ManagerPhone)</th>
+                <th>@Html.DisplayNameFor(modelItem => item.ManagerEmail)</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ManagerName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                <td>@Html.DisplayFor(modelItem => item.ManagerPhone)</td>
+                <td>@Html.DisplayFor(modelItem => item.ManagerEmail)</td>
+            </tr>
+
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Home", "Index")
+        &nbsp;|&nbsp;
+        @Html.ActionLink("Edit Location Managers", "EditLocationManagers")
+        
+        
+    </p>
+</div>

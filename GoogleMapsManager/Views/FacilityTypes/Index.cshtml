@@ -1,0 +1,38 @@
+﻿@model IEnumerable<GoogleMapsManager.Domain.GM_FacilityTypes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Facility Types</h2>
+
+<p>
+    @Html.ActionLink("Create New Facility Type", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FacilityTypeDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FacilityTypeDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FacilityTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FacilityTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FacilityTypeId })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Home", "../MapLocations")
+</div>

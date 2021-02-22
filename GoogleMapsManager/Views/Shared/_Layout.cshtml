@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    
+    @Scripts.Render("~/bundles/kendojs")
+
+    <link href="@Url.Content("~/Content/kendo/2015.2.624/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2015.2.624/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2015.2.624/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2015.2.624/kendo.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="body-container" class="container-fluid">
+        <header class="navbar">
+            <div class="Rktn-border-rounded-top gradient">
+                <span class="pull-left site-title" style="padding-left:8px;">
+                    <img id="img_logo" alt="Logo" src="@Url.Content("~/Content/Images/logo-sm.png")" />
+                </span>
+            </div>
+        </header>
+        @RenderBody()
+    </div>
+</body>
+</html>
